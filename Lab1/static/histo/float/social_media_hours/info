@@ -1,0 +1,9 @@
+count    100000.000000
+mean          3.503288
+std           1.486852
+min           0.000000
+25%           2.500000
+50%           3.500000
+75%           4.500000
+max          10.000000
+Name: Social_Media_Hours, dtype: float64

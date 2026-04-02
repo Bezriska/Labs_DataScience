@@ -1,0 +1,5 @@
+count      100000
+unique          5
+top       Science
+freq        20071
+Name: Department, dtype: object

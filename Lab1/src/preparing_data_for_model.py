@@ -4,10 +4,13 @@ from sklearn.model_selection import train_test_split
 from analythis.feature_engineering import (add_feature_high_stress, add_feature_is_person_recovery,
                                            add_feature_is_procrastination,
                                             add_feature_low_physical_activity, add_feature_sleep_deficit,
-                                            apply_many_feature)
+                                            apply_many_feature, add_feature_sleep_stress_ratio,
+                                            add_feature_social_media_plus_study_sleep_ratio, add_feature_is_high_cgpa,
+                                            add_feature_stress_physical_act_ratio)
 
 funcs = [add_feature_high_stress, add_feature_is_person_recovery,
-         add_feature_is_procrastination, add_feature_low_physical_activity, add_feature_sleep_deficit]
+         add_feature_is_procrastination, add_feature_low_physical_activity,
+         add_feature_sleep_deficit, add_feature_sleep_stress_ratio, add_feature_social_media_plus_study_sleep_ratio]
 
 
 def split_data(df: pd.DataFrame, target_variable: list[str]) -> list[pd.DataFrame]:
@@ -22,10 +25,13 @@ def split_data(df: pd.DataFrame, target_variable: list[str]) -> list[pd.DataFram
     return [X_train, X_val, X_test, Y_train, Y_val, Y_test]
 
 
-def prepare_data(df: pd.DataFrame, target_variable: list[str]) -> list[pd.DataFrame]:
+def prepare_data(df: pd.DataFrame, target_variable: list[str], reg_type: str) -> list[pd.DataFrame]:
 
     encoded_df = pd.get_dummies(df, columns=["Gender", "Department"])
     featured_df = apply_many_feature(encoded_df, funcs)
+    if reg_type == "logistic":
+        featured_df = add_feature_is_high_cgpa(featured_df)
+        featured_df = add_feature_stress_physical_act_ratio(featured_df)
 
     X_train, X_val, X_test, Y_train, Y_val, Y_test = split_data(featured_df, target_variable)
     

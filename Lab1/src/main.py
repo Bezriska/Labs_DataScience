@@ -4,7 +4,7 @@ from learn_models import (learn_linear_reg_model, check_linear_model_error_RMSE,
                           learn_logistic_reg_model, check_logistic_reg_model_error,
                           cross_validate_logistic_model)
 from analythis.df import FEATURES
-from sklearn.metrics import classification_report, f1_score
+from sklearn.metrics import f1_score
 import numpy as np
 
 features = FEATURES.copy()

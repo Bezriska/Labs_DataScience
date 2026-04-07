@@ -84,3 +84,10 @@ memory usage: 7.7 MB
     # plt.show()
 
     # Вывод: распределение одинаковое
+
+
+
+# total = FEATURES["Social_Media_Hours"] + FEATURES["Sleep_Duration"] + FEATURES["Study_Hours"]
+# print((total >= 24).sum())
+
+# Вывод: больше 24 часов в сутках есть у 89 человек -> удаляем

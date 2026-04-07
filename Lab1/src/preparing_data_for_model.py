@@ -6,7 +6,7 @@ from analythis.feature_engineering import (add_feature_high_stress, add_feature_
                                             add_feature_low_physical_activity, add_feature_sleep_deficit,
                                             apply_many_feature, add_feature_sleep_stress_ratio,
                                             add_feature_social_media_plus_study_sleep_ratio, add_feature_is_high_cgpa,
-                                            add_feature_stress_physical_act_ratio)
+                                            add_feature_stress_physical_act_ratio, delete_over_24_h)
 
 funcs = [add_feature_high_stress, add_feature_is_person_recovery,
          add_feature_is_procrastination, add_feature_low_physical_activity,
@@ -50,7 +50,8 @@ def prepare_data(
     Returns:
         Кортеж (X_train, X_val, X_test, Y_train, Y_val, Y_test)
     """
-    encoded_df = pd.get_dummies(df, columns=["Gender", "Department"])
+    deleted_24h = delete_over_24_h(df)
+    encoded_df = pd.get_dummies(deleted_24h, columns=["Gender", "Department"])
     featured_df = apply_many_feature(encoded_df, funcs)
     if reg_type == "logistic":
         featured_df = add_feature_is_high_cgpa(featured_df)

@@ -5,6 +5,19 @@ import pandas as pd
 features = FEATURES
 
 
+def delete_over_24_h(df: pd.DataFrame) -> pd.DataFrame:
+    """Удаляет строки, где суммарное время активностей превышает 24 часа в сутки
+
+    Args:
+        df: Датафрейм с признаками Social_Media_Hours, Study_Hours, Sleep_Duration
+
+    Returns:
+        Датафрейм без физически невозможных строк
+    """
+    mask = (df["Social_Media_Hours"] + df["Study_Hours"] + df["Sleep_Duration"]) >= 24
+    return df[~mask]
+
+
 def add_feature_is_person_recovery(df: pd.DataFrame) -> pd.DataFrame:
     """Добавляет признак Is_Recovery на основе длительности сна
 
